@@ -1,0 +1,8 @@
+.git*
+.vscode
+local.settings.json
+test
+.venv
+.env
+Pipfile.lock
+__pycache__/
