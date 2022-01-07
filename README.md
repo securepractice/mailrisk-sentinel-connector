@@ -38,7 +38,10 @@ If you don't want to wait for the official Data Connector it is possible to down
       - `API_KEY` (MailRisk API Key)
       - `API_SECRET` (MailRisk API Secret)
     - Workspace ID and Primary Key can be found in the Azure Portal, and you should find the workspace that is connected to Azure Sentinel. Typically found under Log Analytics workspace -> Agents management
-    - The MailRisk API key and secret are created in the settings in the portal. If they are already created, hopefully you have them stored somewhere.
+    - The MailRisk API key and secret are created in the [settings in the portal](https://manage.securepractice.co/settings/security). 
+      - If you have lost your API secret, you can generate a new key pair. 
+      
+        <span style="color:red">WARNING:</span> Any services using the old key pair will stop working.
 10. Once all application settings have been entered, click Save.
 
 
@@ -85,4 +88,4 @@ _ marks functions and classes as private
 
                                                                    
 ## License
-To be decided. This software comes with no warranties.
+See the [LICENSE](https://github.com/securepractice/mailrisk-sentinel-connector/blob/master/LICENSE) file for license rights and limitations (MIT).
