@@ -86,6 +86,8 @@ For local development in Visual Studio Code:
 
 _ marks functions and classes as private
 
-                                                                   
+## Feedback or issues
+
+If you have any feedback or issues, be kind and create a new [issue](https://github.com/securepractice/mailrisk-sentinel-connector/issues) or contact us via our [support page](https://securepractice.co/support).
 ## License
 See the [LICENSE](https://github.com/securepractice/mailrisk-sentinel-connector/blob/master/LICENSE) file for license rights and limitations (MIT).
