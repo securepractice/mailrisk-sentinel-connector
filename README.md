@@ -4,7 +4,7 @@ This repository is an Azure Function which checks the MailRisk API for recent ev
 
 
 ## Manual deployment 
-If you don't want to wait for the official Data Connector it is possible to download this repository and publish it as a Azure Function to your Azure account using VS code.
+If you don't want to wait for the official Data Connector it is possible to download this repository and publish it as a Azure Function to your Azure account using VS code. The deployment instructions below were retrieved from: [Use Azure Functions to connect Microsoft Sentinel to your data source](https://docs.microsoft.com/en-us/azure/sentinel/connect-azure-functions-template?tabs=MPY).
 
 1. Prepare [VS code](https://docs.microsoft.com/nb-no/azure/azure-functions/create-first-function-vs-code-python?WT.mc_id=Portal-fx#configure-your-environment) for Azure function deployment. Make sure you have the following requirements in place:
    - An Azure account with and active subscription.
