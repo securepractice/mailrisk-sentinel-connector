@@ -1,10 +1,12 @@
 import os
+
 from dotenv import load_dotenv
+
 load_dotenv()
 
 API_KEY= os.getenv('API_KEY')
 API_SECRET= os.getenv('API_SECRET')
-BASE_URL = os.getenv('BASE_URL', 'https://api.mailrisk.co/v1/')
+BASE_URL = os.getenv('BASE_URL', 'https://api.mailrisk.com/v1/')
 
 # Log Analytics workspace ID
 WORKSPACE_ID=os.getenv('WORKSPACE_ID')

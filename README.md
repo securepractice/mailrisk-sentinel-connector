@@ -1,6 +1,6 @@
-# MailRisk Sentinel Integration - DataConnector
+# MailRisk DataConnector for Azure Sentinel
 
-This repository is an Azure Function which checks the MailRisk API for recent events, and if found posts recent emails to Azure Sentinel.  
+This repository is an Azure Function which checks the Secure Practice API for recent MailRisk events, and if found posts recent emails to Azure Sentinel.  
 
 
 ## Manual deployment 
@@ -15,15 +15,15 @@ If you don't want to wait for the official Data Connector it is possible to down
 
 3. Open VS Code. Choose File in the main menu and select Open Folder and select the top level folder from extracted files..
 
-4. Choose the Azure icon in the Activity bar, then in the Azure: Functions area, choose the Deploy to function app button. If you aren't already signed in, choose the Azure icon in the Activity bar, then in the Azure: Functions area, choose Sign in to Azure If you're already signed in, go to the next step.
+4. Choose the Azure icon in the Activity bar, then in the Azure: Functions area, choose the Deploy to function app button. If you aren't already signed in, choose the Azure icon in the Activity bar. Then, in the Azure: Functions area, choose Sign in to Azure If you're already signed in, go to the next step.
 
 5. Provide the following information at the prompts:
   - Select folder: Choose a folder from your workspace or browse to one that contains your function app.
   - Select Subscription: Choose the subscription to use.
-  - Select Create new Function App in Azure (Don't choose the Advanced option)
+  - Select Create new Function App in Azure (do not choose the Advanced option)
   - Enter a globally unique name for the function app: Type a name that is valid in a URL path. The name you type is validated to make sure that it's unique in Azure Functions.
   - Select a runtime: Choose Python 3.8.
-  - Select a location for new resources. For better performance and lower costs choose the same region where Microsoft Sentinel is located.
+  - Select a location for new resources. We recommend choosing the same region where Microsoft Sentinel is located.
 
 6. Deployment will begin. A notification is displayed after your function app is created and the deployment package is applied.
 
@@ -35,12 +35,11 @@ If you don't want to wait for the official Data Connector it is possible to down
     - Add each of the following application settings individually, with their respective string values (case-sensitive):
       - `WORKSPACE_ID`
       - `WORKSPACE_KEY`
-      - `API_KEY` (MailRisk API Key)
-      - `API_SECRET` (MailRisk API Secret)
+      - `API_KEY` (Secure Practice API Key)
+      - `API_SECRET` (Secure Practice API Secret)
     - Workspace ID and Primary Key can be found in the Azure Portal, and you should find the workspace that is connected to Azure Sentinel. Typically found under Log Analytics workspace -> Agents management
-    - The MailRisk API key and secret are created in the [settings in the portal](https://manage.securepractice.co/settings/security). 
-      - If you have lost your API secret, you can generate a new key pair. 
-      
+    - The Secure Practice API key and secret are created in the [settings in the admin portal](https://manage.securepractice.co/settings/security). 
+      - If you have lost your API secret, you can generate a new key pair.
         <span style="color:red">WARNING:</span> Any services using the old key pair will stop working.
 10. Once all application settings have been entered, click Save.
 
@@ -56,9 +55,9 @@ For local development in Visual Studio Code:
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "python",
-    "API_KEY": "{MAILRISK_API_KEY}",
-    "API_SECRET": "{MAILRISK_API_SECRET}",
-    "BASE_URL": "https://api.mailrisk.co/v1/",
+    "API_KEY": "{SECURE_PRACTICE_API_KEY}",
+    "API_SECRET": "{SECURE_PRACTICE_API_KEY}",
+    "BASE_URL": "https://api.mailrisk.com/v1/",
 
     "WORKSPACE_ID": "{AZURE_WORKSPACE_ID}",
     "WORKSPACE_KEY": "{AZURE_WORKSPACE_KEY}",
