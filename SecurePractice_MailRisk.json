@@ -107,7 +107,11 @@
         },
         {
             "title": "Azure Resource Manager (ARM) Template",
-            "description": "Use this method for automated deployment of the MailRisk data connector using an ARM Template.\n\n1. Click the **Deploy to Azure** button below. \n\n\t[![Deploy To Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fgithub.com%2Fsecurepractice%2Fmailrisk-sentinel-connector%2Fblob%2Fmaster%2Fazuredeploy.json)\n2. Select the preferred **Subscription**, **Resource Group** and **Location**. \n3. Enter the **Workspace ID**, **Workspace Key**, **MailRisk API Key**, **MailRisk API Secret** \n4. Mark the checkbox labeled **I agree to the terms and conditions stated above**.\n5. Click **Purchase** to deploy."
+            "description": "Use this method for automated deployment of the MailRisk data connector using an ARM Template.\n\n1. Click the **Deploy to Azure** button below. \n\n\t[![Deploy To Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fgithub.com%2Fsecurepractice%2Fmailrisk-sentinel-connector%2Fblob%2Fmaster%2Fazuredeploy.json)\n2. Select the preferred **Subscription**, **Resource Group** and **Location**. \n3. Enter the **Workspace ID**, **Workspace Key**, **Secure Practice API Key**, **Secure Practice API Secret** \n4. Mark the checkbox labeled **I agree to the terms and conditions stated above**.\n5. Click **Purchase** to deploy."
+        },
+        {
+            "title": "Manual deployment",
+            "description": "In the open source repository on [GitHub](https://github.com/securepractice/mailrisk-sentinel-connector) you can find instructions for how to manually deploy the data connector."
         }
     ],
     "metadata": {
@@ -116,7 +120,8 @@
         "kind": "dataConnector",
         "source": {
             "kind": "sourceRepository",
-            "name": "mailrisk-python"
+            "name": "mailrisk-sentinel-connector",
+            "url": "https://github.com/securepractice/mailrisk-sentinel-connector"
         },
         "author": {
             "name": "Secure Practice"
@@ -124,8 +129,8 @@
         "support": {
             "tier": "developer",
             "name": "Secure Practice",
-            "email": "Optional: Email of support contact",
-            "link": "Optional: Link for support help, like to support page to open a ticket etc"
+            "email": "support@securepractice.co",
+            "link": "https://securepractice.co/support"
         }
     }
 }
