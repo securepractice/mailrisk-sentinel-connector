@@ -28,9 +28,92 @@
     "variables": {
         "FunctionName": "[concat(toLower(parameters('FunctionName')), uniqueString(resourceGroup().id))]",
         "StorageSuffix": "[environment().suffixes.storage]",
-        "LogAnaltyicsUri": "[replace(environment().portal, 'https://portal', concat('https://', toLower(parameters('WorkspaceID')), '.ods.opinsights'))]"
+        "LogAnaltyicsUri": "[replace(environment().portal, 'https://portal', concat('https://', toLower(parameters('WorkspaceID')), '.ods.opinsights'))]",
+        "KeyVaultName": "[concat('KeyVault', uniqueString(resourceGroup().id))]",
+        "WorkspaceKey": "[concat(variables('KeyVaultName'), '-WorkspaceKey')]",
+        "APIKey": "[concat(variables('KeyVaultName'), '-APIKey')]",
+        "APISecret": "[concat(variables('KeyVaultName'), '-APISecret')]"
     },
     "resources": [
+        {
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2016-10-01",
+            "name": "[variables('KeyVaultName')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', variables('FunctionName'))]"
+            ],
+            "properties": {
+                "sku": {
+                    "family": "A",
+                    "name": "Standard"
+                },
+                "tenantId": "[subscription().tenantId]",
+                "accessPolicies": [
+                    {
+                        "tenantId": "[subscription().tenantId]",
+                        "objectId": "[reference(resourceId('Microsoft.Web/sites', variables('FunctionName')),'2019-08-01', 'full').identity.principalId]",
+                        "permissions": {
+                            "secrets": [ 
+                                "get",
+                                "list"
+                            ]
+                        }
+                    }
+                ],
+                "enabledForDeployment": false,
+                "enabledForDiskEncryption": false,
+                "enabledForTemplateDeployment": true,
+                "enableSoftDelete": true
+            },
+            "resources": [
+                {
+                    "type": "secrets",
+                    "apiVersion": "2016-10-01",
+                    "name": "[variables('WorkspaceKey')]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.KeyVault/vaults/', variables('KeyVaultName'))]"
+                    ],
+                    "properties": {
+                        "value": "[parameters('WorkspaceKey')]",
+                        "contentType": "string",
+                        "attributes": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "type": "secrets",
+                    "apiVersion": "2016-10-01",
+                    "name": "[variables('APISecret')]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.KeyVault/vaults/', variables('KeyVaultName'))]"
+                    ],
+                    "properties": {
+                        "value": "[parameters('APISecret')]",
+                        "contentType": "string",
+                        "attributes": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "type": "secrets",
+                    "apiVersion": "2016-10-01",
+                    "name": "[variables('APISecret')]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.KeyVault/vaults/', variables('KeyVaultName'))]"
+                    ],
+                    "properties": {
+                        "value": "[parameters('APIKey')]",
+                        "contentType": "string",
+                        "attributes": {
+                            "enabled": true
+                        }
+                    }
+                }
+            ]
+        },
         {
             "type": "Microsoft.Insights/components",
             "apiVersion": "2015-05-01",
@@ -156,7 +239,11 @@
                     "type": "config",
                     "name": "appsettings",
                     "dependsOn": [
-                        "[concat('Microsoft.Web/sites/', variables('FunctionName'))]"
+                        "[concat('Microsoft.Web/sites/', variables('FunctionName'))]",
+                        "[resourceId('Microsoft.KeyVault/vaults/', variables('KeyVaultName'))]",
+                        "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('KeyVaultName'), variables('APIKey'))]",            
+                        "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('KeyVaultName'), variables('APISecret'))]",
+                        "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('KeyVaultName'), variables('WorkspaceKey'))]"
                     ],
                     "properties": {
                         "FUNCTIONS_EXTENSION_VERSION": "~4",
@@ -167,11 +254,11 @@
                         "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "[concat('DefaultEndpointsProtocol=https;AccountName=', toLower(variables('FunctionName')),';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', toLower(variables('FunctionName'))), '2019-06-01').keys[0].value, ';EndpointSuffix=',toLower(variables('StorageSuffix')))]",
                         "WEBSITE_CONTENTSHARE": "[toLower(variables('FunctionName'))]",
                         "WORKSPACE_ID": "[parameters('WorkspaceId')]",
-                        "WORKSPACE_KEY": "[parameters('WorkspaceKey')]",
-                        "API_KEY": "[parameters('APIKey')]",
-                        "API_SECRET": "[parameters('APISecret')]",
+                        "WORKSPACE_KEY": "[concat('@Microsoft.KeyVault(SecretUri=', reference(variables('WorkspaceKey')).secretUriWithVersion, ')')]",
+                        "API_KEY": "[concat('@Microsoft.KeyVault(SecretUri=', reference(variables('APISecret')).secretUriWithVersion, ')')]",
+                        "API_SECRET": "[concat('@Microsoft.KeyVault(SecretUri=', reference(variables('APIKey')).secretUriWithVersion, ')')]",
                         "logAnalyticsUri": "[variables('LogAnaltyicsUri')]",
-                        "BASE_URL": "https://api.test.mailrisk.net/v1/"
+                        "BASE_URL": "https://api.mailrisk.com/v1/"
                     }
                 },
                 {
