@@ -100,7 +100,7 @@
                 {
                     "type": "secrets",
                     "apiVersion": "2016-10-01",
-                    "name": "[variables('APISecret')]",
+                    "name": "[variables('APIKey')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.KeyVault/vaults/', variables('KeyVaultName'))]"
                     ],
