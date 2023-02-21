@@ -137,4 +137,3 @@ __azurite_db*__.json
 .vscode/*
 Pipfile.lock
 __pycache__
-.vscode

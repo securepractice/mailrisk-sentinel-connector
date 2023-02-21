@@ -22,7 +22,7 @@ def post_emails(email_ids_and_event_types: 'dict[int, list[str]]') -> bool:
         event_types = email_ids_and_event_types[email.id]
         for event in event_types:
             # Skip emails that were reported as spam
-            if event == EMAIL_REPORTED and email.reported_risk is 1:
+            if event == EMAIL_REPORTED and email.reported_risk == 1:
                 continue
             email.event_type = event
             emails_with_event_type.append(copy(email))

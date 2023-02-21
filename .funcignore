@@ -3,6 +3,7 @@
 local.settings.json
 test
 .venv
+venv
 .env
 Pipfile.lock
 __pycache__/
