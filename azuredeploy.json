@@ -222,7 +222,7 @@
                 "[resourceId('Microsoft.Insights/components', variables('FunctionName'))]",
                 "[resourceId('Microsoft.Web/serverfarms', 'servicePlan')]"
             ],
-            "kind": "functionapp",
+            "kind": "functionapp,linux",
             "identity": {
                 "type": "SystemAssigned"
             },
@@ -231,7 +231,10 @@
                 "httpsOnly": true,
                 "clientAffinityEnabled": true,
                 "alwaysOn": true,
-                "reserved": true
+                "reserved": true,
+                "siteConfig": {
+                    "linuxFxVersion": "python|3.9"
+                }
             },
             "resources": [
                 {
@@ -258,20 +261,8 @@
                         "API_KEY": "[concat('@Microsoft.KeyVault(SecretUri=', reference(variables('APISecret')).secretUriWithVersion, ')')]",
                         "API_SECRET": "[concat('@Microsoft.KeyVault(SecretUri=', reference(variables('APIKey')).secretUriWithVersion, ')')]",
                         "logAnalyticsUri": "[variables('LogAnaltyicsUri')]",
-                        "BASE_URL": "https://api.mailrisk.com/v1/"
-                    }
-                },
-                {
-                    "apiVersion": "2018-11-01",
-                    "name": "web",
-                    "type": "sourcecontrols",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Web/sites/', variables('FunctionName'))]"
-                    ],
-                    "properties": {
-                        "repoUrl": "https://github.com/securepractice/mailrisk-sentinel-connector.git",
-                        "branch": "master",
-                        "IsManualIntegration": true
+                        "BASE_URL": "https://api.mailrisk.com/v1/",
+                        "WEBSITE_RUN_FROM_PACKAGE": "https://raw.githubusercontent.com/securepractice/Azure-Sentinel/SecurePracticeMailRiskFunctionAppSecrets/Solutions/MailRisk/Data%20Connectors/MailRiskSentinelIntegration.zip"
                     }
                 }
             ]
