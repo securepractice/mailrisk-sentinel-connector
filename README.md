@@ -22,7 +22,7 @@ If you don't want to wait for the official Data Connector it is possible to down
   - Select Subscription: Choose the subscription to use.
   - Select Create new Function App in Azure (do not choose the Advanced option)
   - Enter a globally unique name for the function app: Type a name that is valid in a URL path. The name you type is validated to make sure that it's unique in Azure Functions.
-  - Select a runtime: Choose Python 3.8.
+  - Select a runtime: Choose Python 3.9.
   - Select a location for new resources. We recommend choosing the same region where Microsoft Sentinel is located.
 
 6. Deployment will begin. A notification is displayed after your function app is created and the deployment package is applied.
