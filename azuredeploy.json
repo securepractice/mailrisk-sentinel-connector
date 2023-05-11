@@ -261,6 +261,7 @@
                         "API_KEY": "[concat('@Microsoft.KeyVault(SecretUri=', reference(variables('APISecret')).secretUriWithVersion, ')')]",
                         "API_SECRET": "[concat('@Microsoft.KeyVault(SecretUri=', reference(variables('APIKey')).secretUriWithVersion, ')')]",
                         "logAnalyticsUri": "[variables('LogAnaltyicsUri')]",
+                        "LOG_TYPE": "MailRiskEmails",
                         "BASE_URL": "https://api.mailrisk.com/v1/",
                         "WEBSITE_RUN_FROM_PACKAGE": "https://raw.githubusercontent.com/securepractice/Azure-Sentinel/SecurePracticeMailRiskFunctionAppSecrets/Solutions/MailRisk/Data%20Connectors/MailRiskSentinelIntegration.zip"
                     }
